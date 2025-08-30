@@ -6,7 +6,7 @@ const SendEmail = require("./utils/SendEmail.js");
 require("dotenv").config();
 
 const app = express();
-import cors from "cors";
+
 app.use(
   cors({
     origin: ["https://buildora-sepia.vercel.app", "http://localhost:5173"],
