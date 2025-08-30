@@ -5,8 +5,8 @@ const router = express.Router();
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "addminn5889@gmail.com",
-    pass: "kptf uifk dsbx orqi",
+    user: process.env.EMAIL, // من .env
+    pass: process.env.EMAILPASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
@@ -14,11 +14,13 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post("/sendEmail", async (req, res) => {
-  const { to, emailData} = req.body;
-  const subject = emailData.subject; 
+  const { to, emailData } = req.body;
+  const subject = emailData.subject;
   const text = emailData.text;
   if (!Array.isArray(to) || !subject || !text) {
-    return res.status(400).json({ error: "Missing fields or 'to' is not an array" });
+    return res
+      .status(400)
+      .json({ error: "Missing fields or 'to' is not an array" });
   }
 
   try {
